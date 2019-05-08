@@ -5,8 +5,8 @@
             zona
             orientacion
             oscar manzana rosa algoritmo oro - objetos)
-            
-    (:constants 
+
+    (:constants
         norte - orientacion
         sur - orientacion
         este - orientacion
@@ -15,33 +15,44 @@
     (:predicates
         (conectadas ?x - zona ?y - zona)
         (esta-al ?x - orientacion ?z1 - zona ?z2 - zona)
-        (tiene-orientacion ?x - jugador ?y - orientacion)
+        (orientado ?j - jugador ?o - orientacion)
+        (tiene-orientacion ?j - jugador ?o - orientacion)
         (esta-en ?x - jugador ?z - zona)
         (personaje-en ?x - personaje ?z - zona)
         (objeto-en ?o - objeto ?z - zona)
         (posee ?x - jugador ?o - objeto)
+        (or-sig-iz ?actual - orientacion ?siguiente - orientacion)
+        (or-sig-der ?actual - orientacion ?siguiente - orientacion)
         (personaje-posee ?x - personaje ?o - objeto)
     )
-    
+
     (:action GIRAR-IZQ
-        :parameters(?x - jugador ?or - orientacion)
+        :parameters(?x - jugador ?actual ?siguiente - orientacion)
         ; Compruebo la orientación del jugador
         :precondition(and
-                        (tiene-orientacion ?x ?or)
+                        (tiene-orientacion ?x ?actual)
+                        (or-sig-iz ?actual ?siguiente)
                      )
-        :effect()             
-        
+        :effect(and
+                  (not(tiene-orientacion ?x ?actual))
+                  (tiene-orientacion ?x ?siguiente)
+               )
     )
-    
+
     (:action GIRAR-DER
-        :parameters(?x - jugador ?or - orientacion)
-        :precondition(and
-                        (tiene-orientacion ?x ?or)
-                     )
-        
-        :effect()
+      :parameters(?x - jugador ?actual ?siguiente - orientacion)
+      ; Compruebo la orientación del jugador
+      :precondition(and
+                      (tiene-orientacion ?x ?actual)
+                      (or-sig-der ?actual ?siguiente)
+                   )
+      :effect(and
+                (not(tiene-orientacion ?x ?actual))
+                (tiene-orientacion ?x ?siguiente)
+             )
     )
-    
+
+    ; no sé cómo van las posiciones (tiene que estar en la misma, conectadas y con la orientación correcta ?????)
     (:action COGER
         :parameters(?x - jugador ?o - objeto ?z - zona)
         :precondition(and
@@ -54,7 +65,8 @@
                     (not (objeto-en ?o ?z))
                )
     )
-    
+
+    ; no sé cómo van las posiciones (tiene que estar en la misma, conectadas y con la orientación correcta ?????)
     (:action DEJAR
         :parameters(?x - jugador ?o - objeto ?z - zona)
         :precondition(and
@@ -63,10 +75,10 @@
                      )
         :effect(and
                     (not(posee ?j ?o))
-                    (objeto-en(?o ?z))
+                    (objeto-en ?o ?z)
                )
     )
-    
+
     (:action IR
         :parameters(?j - jugador ?or - orientacion ?x - zona ?y - zona)
         :precondition(and
@@ -81,11 +93,19 @@
                 )
     )
 
-
-
-
-
-
+    ; no sé cómo van las posiciones (tiene que estar en la misma, conectadas y con la orientación correcta ?????)
+    (:action ENTREGAR
+        :parameters(?x - jugador ?p - personaje  ?o - objeto)
+        :precondition(and
+                        (posee ?x ?o)
+                        (not(personaje-posee ?p ?o ))
+                        ()
+                     )
+        :effect(and
+                    (not(posee ?x ?o))
+                    (personaje-posee ?p ?o)
+               )
+    )
 
 
 )
