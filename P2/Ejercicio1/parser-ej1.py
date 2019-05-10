@@ -16,6 +16,7 @@ personajes = []
 
 objetos = []
 
+relaciones = []
 
 for line in f_en:
     line = line.lower()
