@@ -4,9 +4,22 @@
 # Autor: Luis Balderas Ruiz
 # Técnicas de los Sistemas Inteligentes. UGR 2019
 
-import sys
+entrada = "entrada.txt"
+salida = "salida.txt"
 
-filename = sys.argv[1]
-f = open(filename, 'r')
-zonas = f.readline()
-num_zonas = int(zonas[16:])
+f_en = open(entrada,'r')
+f_sal = open(salida, 'w')
+
+zonas = []
+
+personajes = []
+
+objetos = []
+
+
+for line in f_en:
+    line = line.lower()
+    if "->" in line:
+        linea = line.split("->")
+        linea[0].strip()
+        linea[1].strip()

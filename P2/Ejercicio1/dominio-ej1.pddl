@@ -19,7 +19,7 @@
     )
 
     (:constants
-        Norte Sur Este Oeste - orientacion
+        norte sur este oeste - orientacion
     )
 
     (:action GIRAR-IZQ
