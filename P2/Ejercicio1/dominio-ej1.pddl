@@ -1,41 +1,37 @@
-﻿(define (domain ejercicio1)
+(define (domain ejercicio1)
     (:requirements :strips :equality :typing)
-    (:types princesa principe bruja profesor dicaprio - personaje
+    (:types jugador zona orientacion objeto personaje - object
+            princesa principe bruja profesor dicaprio - personaje
             avatar - jugador
-            zona
-            orientacion
-            oscar manzana rosa algoritmo oro - objetos)
-
-    (:constants
-        norte - orientacion
-        sur - orientacion
-        este - orientacion
-        oeste - orientacion)
+            oscar manzana rosa algoritmo oro - objeto)
 
     (:predicates
-        (conectadas ?x - zona ?y - zona)
-        (esta-al ?x - orientacion ?z1 - zona ?z2 - zona)
+        (conectadas ?x - zona ?y - zona ?o - orientacion)
         (orientado ?j - jugador ?o - orientacion)
-        (tiene-orientacion ?j - jugador ?o - orientacion)
         (esta-en ?x - jugador ?z - zona)
         (personaje-en ?x - personaje ?z - zona)
         (objeto-en ?o - objeto ?z - zona)
         (posee ?x - jugador ?o - objeto)
+        (tiene-objeto ?p - personaje)
         (or-sig-iz ?actual - orientacion ?siguiente - orientacion)
         (or-sig-der ?actual - orientacion ?siguiente - orientacion)
         (personaje-posee ?x - personaje ?o - objeto)
+    )
+
+    (:constants
+        Norte Sur Este Oeste - orientacion
     )
 
     (:action GIRAR-IZQ
         :parameters(?x - jugador ?actual ?siguiente - orientacion)
         ; Compruebo la orientación del jugador
         :precondition(and
-                        (tiene-orientacion ?x ?actual)
+                        (orientado ?x ?actual)
                         (or-sig-iz ?actual ?siguiente)
                      )
         :effect(and
-                  (not(tiene-orientacion ?x ?actual))
-                  (tiene-orientacion ?x ?siguiente)
+                  (not(orientado ?x ?actual))
+                  (orientado ?x ?siguiente)
                )
     )
 
@@ -43,12 +39,12 @@
       :parameters(?x - jugador ?actual ?siguiente - orientacion)
       ; Compruebo la orientación del jugador
       :precondition(and
-                      (tiene-orientacion ?x ?actual)
+                      (orientado ?x ?actual)
                       (or-sig-der ?actual ?siguiente)
                    )
       :effect(and
-                (not(tiene-orientacion ?x ?actual))
-                (tiene-orientacion ?x ?siguiente)
+                (not(orientado ?x ?actual))
+                (orientado ?x ?siguiente)
              )
     )
 
@@ -58,7 +54,7 @@
         :precondition(and
                         (esta-en ?x ?z)
                         (objeto-en ?o ?z)
-                        (not(posee ?j ?o))
+                        (not(posee ?x ?o))
                      )
         :effect(and
                     (posee ?x ?o)
@@ -71,10 +67,10 @@
         :parameters(?x - jugador ?o - objeto ?z - zona)
         :precondition(and
                         (esta-en ?x ?z)
-                        (posee ?j ?o)
+                        (posee ?x ?o)
                      )
         :effect(and
-                    (not(posee ?j ?o))
+                    (not(posee ?x ?o))
                     (objeto-en ?o ?z)
                )
     )
@@ -83,9 +79,8 @@
         :parameters(?j - jugador ?or - orientacion ?x - zona ?y - zona)
         :precondition(and
                         (esta-en ?j ?x)
-                        (conectadas ?x ?y)
-                        (esta-al ?or ?x ?y)
-                        (tiene-orientacion ?j ?or)
+                        (conectadas ?x ?y ?or)
+                        (orientado ?j ?or)
                      )
         :effect(and
                     (esta-en ?j ?y)
@@ -95,15 +90,17 @@
 
     ; no sé cómo van las posiciones (tiene que estar en la misma, conectadas y con la orientación correcta ?????)
     (:action ENTREGAR
-        :parameters(?x - jugador ?p - personaje  ?o - objeto)
+        :parameters(?x - jugador ?p - personaje  ?o - objeto ?z - zona)
         :precondition(and
                         (posee ?x ?o)
                         (not(personaje-posee ?p ?o ))
-                        ()
+                        (esta-en ?x ?z)
+                        (personaje-en ?p ?z)
                      )
         :effect(and
                     (not(posee ?x ?o))
                     (personaje-posee ?p ?o)
+                    (tiene-objeto ?p)
                )
     )
 
