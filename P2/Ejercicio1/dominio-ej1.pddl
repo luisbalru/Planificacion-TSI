@@ -1,8 +1,8 @@
 (define (domain ejercicio1)
     (:requirements :strips :equality :typing)
     (:types jugador zona orientacion objeto personaje - object
-            princesa principe bruja profesor dicaprio - personaje
-            avatar - jugador
+            Princesa Principe Bruja Profesor Leonardo - personaje
+            Player - jugador
             oscar manzana rosa algoritmo oro - objeto)
 
     (:predicates

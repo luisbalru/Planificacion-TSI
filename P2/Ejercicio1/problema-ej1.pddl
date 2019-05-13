@@ -2,17 +2,17 @@
     (:domain ejercicio1)
     (:objects
         z1 z2 z3 z4 z5 z6 z7 z8 z9 z10 z11 z12 z13 z14 z15 z16 z17 z18 z19 z20 z21 z22 z23 z24 z25 - zona
-        princesa1 - princesa
-        principe1 - principe
-        bruja1 - bruja
-        profesor1 - profesor
-        dicaprio1 - dicaprio
+        princesa1 - Princesa
+        principe1 - Principe
+        bruja1 - Bruja
+        profesor1 - Profesor
+        dicaprio1 - Leonardo
         oscar1 - oscar
         manzana1 - manzana
         rosa1 - rosa
         oro1 - oro
         alg - algoritmo
-        luis - avatar
+        luis - Player
     )
     (:init
       (esta-en luis z1)

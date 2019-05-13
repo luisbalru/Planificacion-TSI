@@ -12,15 +12,35 @@ f_sal = open(salida, 'w')
 
 zonas = []
 
-personajes = []
+objects = []
 
-objetos = []
+cosas-zonas = []
 
 relaciones = []
 
+dominio = ""
+problema = ""
+
+dominio = f_en.readline()
+dominio = dominio.split("Dominio:")[1]
+problema = f_en.readline()
+problema = problema.split("Problema:")[1]
+
+
 for line in f_en:
-    line = line.lower()
     if "->" in line:
         linea = line.split("->")
-        linea[0].strip()
-        linea[1].strip()
+        O = linea[0].strip()
+        aux = linea[1].strip()
+        zones = aux.split(" ")
+        for z in zones:
+            l = z.split("[")
+            if l[0] not in zonas:
+                zonas.append(l[0])
+                ob = l[1].split(",")
+                objects.append(ob)
+                per-ob = []
+                for o in ob:
+                    p = o.split("-")
+                    per-ob.append(p)
+                cosas-zonas.append(per-ob)
