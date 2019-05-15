@@ -1,5 +1,5 @@
-(define (problem prueba1-ej2)
-    (:domain ejercicio2)
+(define (problem prueba1-ej3)
+    (:domain ejercicio3)
     (:objects
         z1 z2 z3 z4 z5 z6 z7 z8 z9 z10 z11 z12 z13 z14 z15 z16 z17 z18 z19 z20 z21 z22 z23 z24 z25 - zona
         princesa1 - Princesa
@@ -12,11 +12,13 @@
         rosa1 - rosa
         oro1 - oro
         alg - algoritmo
+        zap - Zapatilla
         luis - Player
     )
     (:init
       (en luis z1)
       (en princesa1 z4)
+      (en zap z3)
       (en principe1 z6)
       (en bruja1 z15)
       (en profesor1 z10)
@@ -26,6 +28,7 @@
       (en rosa1 z18)
       (en oro1 z23)
       (en alg z16)
+      (es-agua z10)
       (orientado luis sur)
       (or-sig-iz norte oeste)
       (or-sig-iz oeste sur)
