@@ -114,7 +114,7 @@
                   (not (mano-vacia ?x))
                )
     )
-
+    ; pendiente de modificación para quitar when erroneo. Utilizar información del correo
     (:action IR
         :parameters(?j - personaje ?or - orientacion ?x - zona ?y - zona)
         :precondition(and
