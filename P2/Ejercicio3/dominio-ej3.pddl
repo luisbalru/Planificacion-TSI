@@ -1,15 +1,26 @@
-(define (domain ejercicio2)
+(define (domain ejercicio3)
     (:requirements :strips :equality :typing :fluents)
     (:types zona orientacion objeto personaje - object
             personaje objeto - locatable
             Princesa Principe Bruja Profesor Leonardo Player - personaje
-            oscar manzana rosa algoritmo oro - objeto)
+            oscar manzana rosa algoritmo oro Zapatilla Bikini - objeto)
 
     (:predicates
         (conectadas ?x - zona ?y - zona ?o - orientacion)
         (orientado ?j - personaje ?o - orientacion)
+        (mano-vacia ?j - personaje)
+        (mochila-vacia ?j - personaje)
         (en ?l - locatable ?z - zona)
         (posee ?x - personaje ?o - objeto)
+        (es-bikini ?o - objeto)
+        (es-zapatilla ?o - objeto)
+        (tiene-bikini ?x - personaje)
+        (tiene-zapatilla ?x - personaje)
+        (es-bosque ?z - zona)
+        (es-agua ?z - zona)
+        (es-precipicio ?z - zona)
+        (es-arena ?z - zona)
+        (es-piedra ?z - zona)
         (tiene-objeto ?p - personaje)
         (or-sig-iz ?actual - orientacion ?siguiente - orientacion)
         (or-sig-der ?actual - orientacion ?siguiente - orientacion)
@@ -51,21 +62,20 @@
              )
     )
 
-    ; no sé cómo van las posiciones (tiene que estar en la misma, conectadas y con la orientación correcta ?????)
     (:action COGER
         :parameters(?x - personaje ?o - objeto ?z - zona)
         :precondition(and
                         (en ?x ?z)
                         (en ?o ?z)
-                        (not(posee ?x ?o))
+                        (mano-vacia ?x)
                      )
         :effect(and
                     (posee ?x ?o)
+                    (not (mano-vacia ?x))
                     (not (en ?o ?z))
                )
     )
 
-    ; no sé cómo van las posiciones (tiene que estar en la misma, conectadas y con la orientación correcta ?????)
     (:action DEJAR
         :parameters(?x - personaje ?o - objeto ?z - zona)
         :precondition(and
@@ -73,8 +83,35 @@
                         (posee ?x ?o)
                      )
         :effect(and
-                    (not(posee ?x ?o))
-                    (en ?o ?z)
+                   (not (posee ?x ?o))
+                   (mano-vacia ?x)
+                   (en ?o ?z)
+               )
+    )
+
+    (:action METER
+        :parameters(?x - personaje ?o - objeto)
+        :precondition(and
+                        (not (mano-vacia ?x))
+                        (posee ?x ?o)
+                        (mochila-vacia ?x)
+                     )
+        :effect(and
+                  (mano-vacia ?x)
+                  (not (mochila-vacia ?x))
+               )
+    )
+
+    (:action SACAR
+        :parameters(?x - personaje ?o - objeto)
+        :precondition(and
+                        (mano-vacia ?x)
+                        (not (mochila-vacia ?o))
+                        (posee ?x ?o)
+                     )
+        :effect(and
+                  (mochila-vacia ?o)
+                  (not (mano-vacia ?x))
                )
     )
 
@@ -84,6 +121,13 @@
                         (en ?j ?x)
                         (conectadas ?x ?y ?or)
                         (orientado ?j ?or)
+                        (not (es-precipicio ?y))
+                        (when (and (es-tierra ?y))
+                            (and (tiene-zapatilla ?j))
+                        )
+                        (when (and (es-agua ?y))
+                            (and (tiene-bikini ?j))
+                        )
                      )
         :effect(and
                     (en ?j ?y)
