@@ -59,7 +59,7 @@ for line in f_en:
                 	p = o.split("-")
                 	per_ob.append(p[0])
                 cosas_zonas.append(per_ob)
-print(objects)
+
 
 f_sal = open(salida, 'w')
 f_sal.write("define(problem " + problema+")\n")
