@@ -2,6 +2,6 @@ Dominio:Ejercicio1
 Problema:Problema1
 numero zonas:7
 
-V -> z1[bruja1-Bruja]=10=z3[oro1-oro]=5=z6[]
-H -> z2[player1-Player]=10=z3[]=5=z4[manzana1-Manzana]
-H -> z5[oscar1-Oscar]=10=z6[]=5=z7[princesa1-Princesa]
+V -> z1[bruja1-Bruja](Bosque)=10=z3[oro1-oro](Arena)=5=z6[](Piedra)
+H -> z2[player1-Player](Bosque)=10=z3[](Arena)=5=z4[manzana1-Manzana](Piedra)
+H -> z5[oscar1-Oscar](Bosque)=10=z6[](Bosque)=5=z7[princesa1-Princesa]()
