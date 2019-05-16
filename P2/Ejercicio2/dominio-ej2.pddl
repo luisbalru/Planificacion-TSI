@@ -7,7 +7,7 @@
 
     (:predicates
         (conectadas ?x - zona ?y - zona ?o - orientacion)
-        (orientado ?j - personaje ?o - orientacion)
+        (orientado ?j - Player ?o - orientacion)
         (en ?l - locatable ?z - zona)
         (posee ?x - personaje ?o - objeto)
         (tiene-objeto ?p - personaje)
@@ -26,7 +26,7 @@
     )
 
     (:action GIRAR-IZQ
-        :parameters(?x - personaje ?actual ?siguiente - orientacion)
+        :parameters(?x - Player ?actual ?siguiente - orientacion)
         ; Compruebo la orientación del personaje
         :precondition(and
                         (orientado ?x ?actual)
@@ -39,7 +39,7 @@
     )
 
     (:action GIRAR-DER
-      :parameters(?x - personaje ?actual ?siguiente - orientacion)
+      :parameters(?x - Player ?actual ?siguiente - orientacion)
       ; Compruebo la orientación del personaje
       :precondition(and
                       (orientado ?x ?actual)
@@ -53,7 +53,7 @@
 
     ; no sé cómo van las posiciones (tiene que estar en la misma, conectadas y con la orientación correcta ?????)
     (:action COGER
-        :parameters(?x - personaje ?o - objeto ?z - zona)
+        :parameters(?x - Player ?o - objeto ?z - zona)
         :precondition(and
                         (en ?x ?z)
                         (en ?o ?z)
@@ -79,7 +79,7 @@
     )
 
     (:action IR
-        :parameters(?j - personaje ?or - orientacion ?x - zona ?y - zona)
+        :parameters(?j - Player ?or - orientacion ?x - zona ?y - zona)
         :precondition(and
                         (en ?j ?x)
                         (conectadas ?x ?y ?or)
@@ -94,7 +94,7 @@
 
     ; no sé cómo van las posiciones (tiene que estar en la misma, conectadas y con la orientación correcta ?????)
     (:action ENTREGAR
-        :parameters(?x - personaje ?p - personaje  ?o - objeto ?z - zona)
+        :parameters(?x - Player ?p - personaje  ?o - objeto ?z - zona)
         :precondition(and
                         (posee ?x ?o)
                         (not(personaje-posee ?p ?o ))
