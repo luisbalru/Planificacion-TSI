@@ -1,6 +1,6 @@
 Dominio:Ejercicio1
 Problema:Problema1
-numero zonas:7
+numero-zonas:7
 puntos_totales:50
 
 V -> z1[bruja1-Bruja](Bosque)=10=z3[oro1-oro](Arena)=5=z6[](Piedra)
