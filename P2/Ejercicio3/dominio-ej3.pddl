@@ -24,7 +24,6 @@
         (tiene-objeto ?p - personaje)
         (or-sig-iz ?actual - orientacion ?siguiente - orientacion)
         (or-sig-der ?actual - orientacion ?siguiente - orientacion)
-        (personaje-posee ?x - personaje ?o - objeto)
     )
 
     (:constants
@@ -147,7 +146,6 @@
                      )
         :effect(and
                     (not(posee ?x ?o))
-                    (personaje-posee ?p ?o)
                     (tiene-objeto ?p)
                )
     )
