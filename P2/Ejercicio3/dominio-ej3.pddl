@@ -7,15 +7,15 @@
 
     (:predicates
         (conectadas ?x - zona ?y - zona ?o - orientacion)
-        (orientado ?j - personaje ?o - orientacion)
-        (mano-vacia ?j - personaje)
-        (mochila-vacia ?j - personaje)
+        (orientado ?j - Player ?o - orientacion)
+        (mano-vacia ?j - Player)
+        (mochila-vacia ?j - Player)
         (en ?l - locatable ?z - zona)
         (posee ?x - personaje ?o - objeto)
         (es-bikini ?o - objeto)
         (es-zapatilla ?o - objeto)
-        (tiene-bikini ?x - personaje)
-        (tiene-zapatilla ?x - personaje)
+        (tiene-bikini ?x - Player)
+        (tiene-zapatilla ?x - Player)
         (es-bosque ?z - zona)
         (es-agua ?z - zona)
         (es-precipicio ?z - zona)
@@ -36,7 +36,7 @@
     )
 
     (:action GIRAR-IZQ
-        :parameters(?x - personaje ?actual ?siguiente - orientacion)
+        :parameters(?x - Player ?actual ?siguiente - orientacion)
         ; Compruebo la orientación del personaje
         :precondition(and
                         (orientado ?x ?actual)
@@ -49,7 +49,7 @@
     )
 
     (:action GIRAR-DER
-      :parameters(?x - personaje ?actual ?siguiente - orientacion)
+      :parameters(?x - Player ?actual ?siguiente - orientacion)
       ; Compruebo la orientación del personaje
       :precondition(and
                       (orientado ?x ?actual)
@@ -62,7 +62,7 @@
     )
 
     (:action COGER
-        :parameters(?x - personaje ?o - objeto ?z - zona)
+        :parameters(?x - Player ?o - objeto ?z - zona)
         :precondition(and
                         (en ?x ?z)
                         (en ?o ?z)
@@ -72,11 +72,21 @@
                     (posee ?x ?o)
                     (not (mano-vacia ?x))
                     (not (en ?o ?z))
+                    (when (and (es-bikini ?o))
+                        (and
+                            (tiene-bikini ?x)
+                        )
+                    )
+                    (when (and (es-zapatilla ?o))
+                        (and
+                            (tiene-zapatilla ?x)
+                        )
+                    )
                )
     )
 
     (:action DEJAR
-        :parameters(?x - personaje ?o - objeto ?z - zona)
+        :parameters(?x - Player ?o - objeto ?z - zona)
         :precondition(and
                         (en ?x ?z)
                         (posee ?x ?o)
@@ -85,11 +95,21 @@
                    (not (posee ?x ?o))
                    (mano-vacia ?x)
                    (en ?o ?z)
+                   (when (and (es-bikini ?o))
+                       (and
+                           (not (tiene-bikini ?x))
+                       )
+                   )
+                   (when (and (es-zapatilla ?o))
+                       (and
+                           (not (tiene-zapatilla ?x))
+                       )
+                   )
                )
     )
 
     (:action METER
-        :parameters(?x - personaje ?o - objeto)
+        :parameters(?x - Player ?o - objeto)
         :precondition(and
                         (not (mano-vacia ?x))
                         (posee ?x ?o)
@@ -102,30 +122,36 @@
     )
 
     (:action SACAR
-        :parameters(?x - personaje ?o - objeto)
+        :parameters(?x - Player ?o - objeto)
         :precondition(and
                         (mano-vacia ?x)
-                        (not (mochila-vacia ?o))
+                        (not (mochila-vacia ?x))
                         (posee ?x ?o)
                      )
         :effect(and
-                  (mochila-vacia ?o)
+                  (mochila-vacia ?x)
                   (not (mano-vacia ?x))
                )
     )
     ; pendiente de modificación para quitar when erroneo. Utilizar información del correo
     (:action IR
-        :parameters(?j - personaje ?or - orientacion ?x - zona ?y - zona)
+        :parameters(?j - Player ?or - orientacion ?x - zona ?y - zona)
         :precondition(and
                         (en ?j ?x)
                         (conectadas ?x ?y ?or)
                         (orientado ?j ?or)
                         (not (es-precipicio ?y))
-                        (when (and (es-tierra ?y))
-                            (and (tiene-zapatilla ?j))
-                        )
-                        (when (and (es-agua ?y))
-                            (and (tiene-bikini ?j))
+                        (or
+                            (es-bosque ?y)
+                            (tiene-zapatilla ?j)
+                            (or
+                                (not (es-bosque ?y))
+                                (es-agua ?y)
+                                (tiene-bikini ?j)
+                                (and
+                                    (not (es-agua ?y))
+                                )
+                            )
                         )
                      )
         :effect(and
@@ -137,7 +163,7 @@
 
     ; no sé cómo van las posiciones (tiene que estar en la misma, conectadas y con la orientación correcta ?????)
     (:action ENTREGAR
-        :parameters(?x - personaje ?p - personaje  ?o - objeto ?z - zona)
+        :parameters(?x - Player ?p - personaje  ?o - objeto ?z - zona)
         :precondition(and
                         (posee ?x ?o)
                         (not(personaje-posee ?p ?o ))
