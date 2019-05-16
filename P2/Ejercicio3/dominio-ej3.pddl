@@ -11,7 +11,6 @@
         (mano-vacia ?j - Player)
         (mochila-vacia ?j - Player)
         (en ?l - locatable ?z - zona)
-        (posee ?x - personaje ?o - objeto)
         (es-bikini ?o - objeto)
         (es-zapatilla ?o - objeto)
         (tiene-bikini ?x - Player)
@@ -69,7 +68,6 @@
                         (mano-vacia ?x)
                      )
         :effect(and
-                    (posee ?x ?o)
                     (not (mano-vacia ?x))
                     (not (en ?o ?z))
                     (when (and (es-bikini ?o))
@@ -89,10 +87,9 @@
         :parameters(?x - Player ?o - objeto ?z - zona)
         :precondition(and
                         (en ?x ?z)
-                        (posee ?x ?o)
+                        (not (mano-vacia ?x))
                      )
         :effect(and
-                   (not (posee ?x ?o))
                    (mano-vacia ?x)
                    (en ?o ?z)
                    (when (and (es-bikini ?o))
@@ -112,7 +109,6 @@
         :parameters(?x - Player ?o - objeto)
         :precondition(and
                         (not (mano-vacia ?x))
-                        (posee ?x ?o)
                         (mochila-vacia ?x)
                      )
         :effect(and
@@ -126,14 +122,14 @@
         :precondition(and
                         (mano-vacia ?x)
                         (not (mochila-vacia ?x))
-                        (posee ?x ?o)
                      )
         :effect(and
                   (mochila-vacia ?x)
                   (not (mano-vacia ?x))
                )
     )
-    ; pendiente de modificación para quitar when erroneo. Utilizar información del correo
+
+
     (:action IR
         :parameters(?j - Player ?or - orientacion ?x - zona ?y - zona)
         :precondition(and
@@ -165,13 +161,21 @@
     (:action ENTREGAR
         :parameters(?x - Player ?p - personaje  ?o - objeto ?z - zona)
         :precondition(and
-                        (posee ?x ?o)
-                        (not(personaje-posee ?p ?o ))
+                        (not (tiene-objeto ?p))
                         (en ?x ?z)
                         (en ?p ?z)
                      )
         :effect(and
-                    (not(posee ?x ?o))
+                    (when (and (es-bikini ?o))
+                        (and
+                            (not (tiene-bikini ?x))
+                        )
+                    )
+                    (when (and (es-zapatilla ?o))
+                        (and
+                            (not (tiene-zapatilla ?x))
+                        )
+                    )
                     (tiene-objeto ?p)
                )
     )

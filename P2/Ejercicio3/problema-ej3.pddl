@@ -145,7 +145,7 @@
                 (tiene-objeto bruja1)
                 (tiene-objeto dicaprio1)
                 (tiene-objeto profesor1)
-                (<= (distancia-total) 300)
+                (<= (distancia-total) 100)
             )
     )
 )
