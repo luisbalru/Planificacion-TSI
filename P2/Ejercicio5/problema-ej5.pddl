@@ -1,5 +1,5 @@
-(define (problem prueba1-ej3)
-    (:domain ejercicio3)
+(define (problem prueba1-ej5)
+    (:domain ejercicio5)
     (:objects
         z1 z2 z3 z4 z5 z6 z7 z8 z9 z10 z11 z12 z13 z14 z15 z16 z17 z18 z19 z20 z21 z22 z23 z24 z25 - zona
         princesa1 - Princesa
@@ -14,6 +14,12 @@
         alg - algoritmo
         zap - Zapatilla
         luis - Player
+        oscar2 - oscar
+        manzana2 - manzana
+        rosa2 - rosa
+        oro2 - oro
+        alg2 - algoritmo
+        zap2 - Zapatilla
     )
     (:init
       (en luis z1)
@@ -28,8 +34,18 @@
       (en rosa1 z18)
       (en oro1 z23)
       (en alg z16)
+      (en oscar2 z13)
+      (en manzana2 z3)
+      (en rosa2 z18)
+      (en oro2 z23)
+      (en alg2 z16)
       (mochila-vacia luis)
       (mano-vacia luis)
+      (= (huecos-bolsillo bruja1) 3)
+      (= (huecos-bolsillo profesor1) 3)
+      (= (huecos-bolsillo leonardo1) 3)
+      (= (huecos-bolsillo principe1) 3)
+      (= (huecos-bolsillo princesa1) 3)
       ;(es-bosque z10)
       (orientado luis sur)
       (or-sig-iz norte oeste)
@@ -121,6 +137,37 @@
         (= (puntos principe1 manzana1) 4)
         (= (puntos principe1 alg) 5)
         (= (puntos principe1 oro1) 10)
+
+
+        (= (puntos leonardo1 oscar2) 10)
+        (= (puntos leonardo1 rosa2) 1)
+        (= (puntos leonardo1 manzana2) 3)
+        (= (puntos leonardo1 alg2) 4)
+        (= (puntos leonardo1 oro2) 5)
+        ; puntos para princesa1
+        (= (puntos princesa1 oscar2) 5)
+        (= (puntos princesa1 rosa2) 10)
+        (= (puntos princesa1 manzana2) 1)
+        (= (puntos princesa1 alg2) 3)
+        (= (puntos princesa1 oro2) 4)
+        ; puntos para bruja1
+        (= (puntos bruja1 oscar2) 4)
+        (= (puntos bruja1 rosa2) 5)
+        (= (puntos bruja1 manzana2) 10)
+        (= (puntos bruja1 alg2) 1)
+        (= (puntos bruja1 oro2) 3)
+        ; puntos para profesor1
+        (= (puntos profesor1 oscar2) 3)
+        (= (puntos profesor1 rosa2) 4)
+        (= (puntos profesor1 manzana2) 5)
+        (= (puntos profesor1 alg2) 10)
+        (= (puntos profesor1 oro2) 1)
+        ; puntos para principe1
+        (= (puntos principe1 oscar2) 1)
+        (= (puntos principe1 rosa2) 3)
+        (= (puntos principe1 manzana2) 4)
+        (= (puntos principe1 alg2) 5)
+        (= (puntos principe1 oro2) 10)
         ;distancias
         (= (distancia-total) 0)
         (= (distancia z1 z2) 2)
@@ -173,13 +220,13 @@
         (= (distancia z25 z24) 2)
     )
     (:goal (and
-                ;(tiene-objeto princesa1)
-                ;(tiene-objeto principe1)
-                ;(tiene-objeto bruja1)
-                ;(tiene-objeto leonardo1)
-                ;(tiene-objeto profesor1)
-                ;(<= (distancia-total) 100)
-                (>= (puntos-jugador) 40)
+                (tiene-objeto princesa1)
+                (tiene-objeto principe1)
+                (tiene-objeto bruja1)
+                (tiene-objeto leonardo1)
+                (tiene-objeto profesor1)
+                (<= (distancia-total) 700)
+                (>= (puntos-jugador) 50)
             )
     )
 )
