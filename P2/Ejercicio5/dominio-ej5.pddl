@@ -7,6 +7,8 @@
 
     (:constants
           norte sur este oeste - orientacion
+          tipoLeo tipoBr tipoPrincipe tipoPrincesa tipoProfe - tipoPersonaje
+          tipoOscar tipoManz tipoRosa tipoAlg tipoOro - tipoObjeto
     )
 
     (:predicates
@@ -16,6 +18,8 @@
         (mochila-vacia ?j - Player)
         (posee-mano ?x - Player ?o - objeto)
         (posee-mochila ?x - Player ?o - objeto)
+        (es-tipo-p ?t - tipoPersonaje ?p - personaje)
+        (es-tipo-o ?to - tipoObjeto ?o - objeto)
         (en ?l - locatable ?z - zona)
         (es-bikini ?o - objeto)
         (es-zapatilla ?o - objeto)
@@ -36,7 +40,7 @@
     (:functions
         (distancia ?x ?y - zona)
         (distancia-total)
-        (puntos ?p - personaje ?o - objeto)
+        (puntos ?p - tipoPersonaje ?o - tipoObjeto)
         (puntos-jugador)
         (huecos-bolsillo ?p - personaje)
     )
@@ -191,7 +195,90 @@
                             (not (tiene-zapatilla ?x))
                         )
                     )
-                    (increase (puntos-jugador) (puntos ?p ?o))
+                    ; comprobación para tipoPrincipe
+                    (when (and
+                              (es-tipo-p tipoPrincipe ?p)
+                              (es-tipo-o tipoOscar ?o)
+                          )
+                          (and
+                            (increase (puntos-jugador) (puntos tipoPrincipe tipoOscar))
+                          )
+                    )
+                    (when (and
+                              (es-tipo-p tipoPrincipe ?p)
+                              (es-tipo-o tipoRosa ?o)
+                          )
+                          (and
+                            (increase (puntos-jugador) (puntos tipoPrincipe tipoRosa))
+                          )
+                    )
+                    (when (and
+                              (es-tipo-p tipoPrincipe ?p)
+                              (es-tipo-o tipoManz ?o)
+                          )
+                          (and
+                            (increase (puntos-jugador) (puntos tipoPrincipe tipoManz))
+                          )
+                    )
+                    (when (and
+                              (es-tipo-p tipoPrincipe ?p)
+                              (es-tipo-o tipoAlg ?o)
+                          )
+                          (and
+                            (increase (puntos-jugador) (puntos tipoPrincipe tipoAlg))
+                          )
+                    )
+                    (when (and
+                              (es-tipo-p tipoPrincipe ?p)
+                              (es-tipo-o tipoOro ?o)
+                          )
+                          (and
+                            (increase (puntos-jugador) (puntos tipoPrincipe tipoOro))
+                          )
+                    )
+                    ; comprobación para tipo princesa
+                    (when (and
+                              (es-tipo-p tipoPrincesa ?p)
+                              (es-tipo-o tipoOscar ?o)
+                          )
+                          (and
+                            (increase (puntos-jugador) (puntos tipoPrincesa tipoOscar))
+                          )
+                    )
+                    (when (and
+                              (es-tipo-p tipoPrincesa ?p)
+                              (es-tipo-o tipoRosa ?o)
+                          )
+                          (and
+                            (increase (puntos-jugador) (puntos tipoPrincesa tipoRosa))
+                          )
+                    )
+                    (when (and
+                              (es-tipo-p tipoPrincesa ?p)
+                              (es-tipo-o tipoManz ?o)
+                          )
+                          (and
+                            (increase (puntos-jugador) (puntos tipoPrincesa tipoManz))
+                          )
+                    )
+                    (when (and
+                              (es-tipo-p tipoPrincesa ?p)
+                              (es-tipo-o tipoAlg ?o)
+                          )
+                          (and
+                            (increase (puntos-jugador) (puntos tipoPrincesa tipoAlg))
+                          )
+                    )
+                    (when (and
+                              (es-tipo-p tipoPrincesa ?p)
+                              (es-tipo-o tipoOro ?o)
+                          )
+                          (and
+                            (increase (puntos-jugador) (puntos tipoPrincesa tipoOro))
+                          )
+                    )
+                    ; comprobación tipo bruja
+
                     (tiene-objeto ?p)
                     (mano-vacia ?x)
                     (not (posee-mano ?x ?o))
