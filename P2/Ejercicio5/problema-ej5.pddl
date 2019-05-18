@@ -128,11 +128,11 @@
       ; puntos de luis
       (= (puntos-jugador) 0)
       ; puntos para leonardo1
-      (= (puntos tipoLeonardo tipoOscar) 10)
-      (= (puntos tipoLeonardo tipoRosa) 1)
-      (= (puntos tipoLeonardo tipoManz) 3)
-      (= (puntos tipoLeonardo tipoAlg) 4)
-      (= (puntos tipoLeonardo tipoOro) 5)
+      (= (puntos tipoLeo tipoOscar) 10)
+      (= (puntos tipoLeo tipoRosa) 1)
+      (= (puntos tipoLeo tipoManz) 3)
+      (= (puntos tipoLeo tipoAlg) 4)
+      (= (puntos tipoLeo tipoOro) 5)
       ; puntos para princesa1
       (= (puntos tipoPrincesa tipoOscar) 5)
       (= (puntos tipoPrincesa tipoRosa) 10)
@@ -215,7 +215,7 @@
                 (tiene-objeto leonardo1)
                 (tiene-objeto profesor1)
                 (<= (distancia-total) 700)
-                (>= (puntos-jugador) 50)
+                (>= (puntos-jugador) 20)
             )
     )
 )

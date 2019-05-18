@@ -277,7 +277,133 @@
                             (increase (puntos-jugador) (puntos tipoPrincesa tipoOro))
                           )
                     )
+
                     ; comprobación tipo bruja
+                    (when (and
+                              (es-tipo-p tipoBr ?p)
+                              (es-tipo-o tipoOscar ?o)
+                          )
+                          (and
+                            (increase (puntos-jugador) (puntos tipoBr tipoOscar))
+                          )
+                    )
+                    (when (and
+                              (es-tipo-p tipoBr ?p)
+                              (es-tipo-o tipoRosa ?o)
+                          )
+                          (and
+                            (increase (puntos-jugador) (puntos tipoBr tipoRosa))
+                          )
+                    )
+                    (when (and
+                              (es-tipo-p tipoBr ?p)
+                              (es-tipo-o tipoManz ?o)
+                          )
+                          (and
+                            (increase (puntos-jugador) (puntos tipoBr tipoManz))
+                          )
+                    )
+                    (when (and
+                              (es-tipo-p tipoBr ?p)
+                              (es-tipo-o tipoAlg ?o)
+                          )
+                          (and
+                            (increase (puntos-jugador) (puntos tipoBr tipoAlg))
+                          )
+                    )
+                    (when (and
+                              (es-tipo-p tipoBr ?p)
+                              (es-tipo-o tipoOro ?o)
+                          )
+                          (and
+                            (increase (puntos-jugador) (puntos tipoBr tipoOro))
+                          )
+                    )
+
+                  ; comprobacion tipo profesor
+                  (when (and
+                            (es-tipo-p tipoProfe ?p)
+                            (es-tipo-o tipoOscar ?o)
+                        )
+                        (and
+                          (increase (puntos-jugador) (puntos tipoProfe tipoOscar))
+                        )
+                  )
+                  (when (and
+                            (es-tipo-p tipoProfe ?p)
+                            (es-tipo-o tipoRosa ?o)
+                        )
+                        (and
+                          (increase (puntos-jugador) (puntos tipoProfe tipoRosa))
+                        )
+                  )
+                  (when (and
+                            (es-tipo-p tipoProfe ?p)
+                            (es-tipo-o tipoManz ?o)
+                        )
+                        (and
+                          (increase (puntos-jugador) (puntos tipoProfe tipoManz))
+                        )
+                  )
+                  (when (and
+                            (es-tipo-p tipoProfe ?p)
+                            (es-tipo-o tipoAlg ?o)
+                        )
+                        (and
+                          (increase (puntos-jugador) (puntos tipoProfe tipoAlg))
+                        )
+                  )
+                  (when (and
+                            (es-tipo-p tipoProfe ?p)
+                            (es-tipo-o tipoOro ?o)
+                        )
+                        (and
+                          (increase (puntos-jugador) (puntos tipoProfe tipoOro))
+                        )
+                  )
+
+                  ; comprobación tipo Leonardo
+                  (when (and
+                            (es-tipo-p tipoLeo ?p)
+                            (es-tipo-o tipoOscar ?o)
+                        )
+                        (and
+                          (increase (puntos-jugador) (puntos tipoLeo tipoOscar))
+                        )
+                  )
+                  (when (and
+                            (es-tipo-p tipoLeo ?p)
+                            (es-tipo-o tipoRosa ?o)
+                        )
+                        (and
+                          (increase (puntos-jugador) (puntos tipoLeo tipoRosa))
+                        )
+                  )
+                  (when (and
+                            (es-tipo-p tipoLeo ?p)
+                            (es-tipo-o tipoManz ?o)
+                        )
+                        (and
+                          (increase (puntos-jugador) (puntos tipoLeo tipoManz))
+                        )
+                  )
+                  (when (and
+                            (es-tipo-p tipoLeo ?p)
+                            (es-tipo-o tipoAlg ?o)
+                        )
+                        (and
+                          (increase (puntos-jugador) (puntos tipoLeo tipoAlg))
+                        )
+                  )
+                  (when (and
+                            (es-tipo-p tipoLeo ?p)
+                            (es-tipo-o tipoOro ?o)
+                        )
+                        (and
+                          (increase (puntos-jugador) (puntos tipoLeo tipoOro))
+                        )
+                  )
+
 
                     (tiene-objeto ?p)
                     (mano-vacia ?x)
