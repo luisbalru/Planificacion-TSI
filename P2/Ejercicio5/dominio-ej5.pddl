@@ -31,7 +31,6 @@
         (es-arena ?z - zona)
         (es-piedra ?z - zona)
         (tiene-objeto ?p - personaje)
-        (posee ?p - Player ?o - objeto)
         (or-sig-iz ?actual - orientacion ?siguiente - orientacion)
         (or-sig-der ?actual - orientacion ?siguiente - orientacion)
     )

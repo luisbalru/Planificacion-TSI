@@ -8,14 +8,39 @@
         profesor1 - Profesor
         leonardo1 - Leonardo
         oscar1 - oscar
+        oscar2 - oscar
         manzana1 - manzana
+        manzana2 - manzana
         rosa1 - rosa
+        rosa2 - rosa
         oro1 - oro
+        oro2 - oro
         alg - algoritmo
+        alg2 - algoritmo
         zap - Zapatilla
         luis - Player
     )
     (:init
+      ; definición de tipos personajes
+      (es-tipo-p tipoPrincipe principe1)
+      (es-tipo-p tipoPrincesa princesa1)
+      (es-tipo-p tipoProfe profesor1)
+      (es-tipo-p tipoBr bruja1)
+      (es-tipo-p tipoLeo leonardo1)
+
+      ; definición de tipos objetos
+      (es-tipo-o tipoOscar oscar1)
+      (es-tipo-o tipoOscar oscar2)
+      (es-tipo-o tipoManz manzana1)
+      (es-tipo-o tipoManz manzana2)
+      (es-tipo-o tipoRosa rosa1)
+      (es-tipo-o tipoRosa rosa2)
+      (es-tipo-o tipoAlg alg)
+      (es-tipo-o tipoAlg alg2)
+      (es-tipo-o tipoOro oro1)
+      (es-tipo-o tipoOro oro2)
+
+      ; zonas y personajes
       (en luis z1)
       (en princesa1 z4)
       ;(en zap z3)
@@ -92,35 +117,35 @@
         ; puntos de luis
         (= (puntos-jugador) 0)
         ; puntos para leonardo1
-        (= (puntos leonardo1 oscar1) 10)
-        (= (puntos leonardo1 rosa1) 1)
-        (= (puntos leonardo1 manzana1) 3)
-        (= (puntos leonardo1 alg) 4)
-        (= (puntos leonardo1 oro1) 5)
+        (= (puntos tipoLeo tipoOscar) 10)
+        (= (puntos tipoLeo tipoRosa) 1)
+        (= (puntos tipoLeo tipoManz) 3)
+        (= (puntos tipoLeo tipoAlg) 4)
+        (= (puntos tipoLeo tipoOro) 5)
         ; puntos para princesa1
-        (= (puntos princesa1 oscar1) 5)
-        (= (puntos princesa1 rosa1) 10)
-        (= (puntos princesa1 manzana1) 1)
-        (= (puntos princesa1 alg) 3)
-        (= (puntos princesa1 oro1) 4)
-        ; puntos para bruja1
-        (= (puntos bruja1 oscar1) 4)
-        (= (puntos bruja1 rosa1) 5)
-        (= (puntos bruja1 manzana1) 10)
-        (= (puntos bruja1 alg) 1)
-        (= (puntos bruja1 oro1) 3)
+        (= (puntos tipoPrincesa tipoOscar) 5)
+        (= (puntos tipoPrincesa tipoRosa) 10)
+        (= (puntos tipoPrincesa tipoManz) 1)
+        (= (puntos tipoPrincesa tipoAlg) 3)
+        (= (puntos tipoPrincesa tipoOro) 4)
+      ; puntos para bruja1
+        (= (puntos tipoBr tipoOscar) 4)
+        (= (puntos tipoBr tipoRosa) 5)
+        (= (puntos tipoBr tipoManz) 10)
+        (= (puntos tipoBr tipoAlg) 1)
+        (= (puntos tipoBr tipoOro) 3)
         ; puntos para profesor1
-        (= (puntos profesor1 oscar1) 3)
-        (= (puntos profesor1 rosa1) 4)
-        (= (puntos profesor1 manzana1) 5)
-        (= (puntos profesor1 alg) 10)
-        (= (puntos profesor1 oro1) 1)
-        ; puntos para principe1
-        (= (puntos principe1 oscar1) 1)
-        (= (puntos principe1 rosa1) 3)
-        (= (puntos principe1 manzana1) 4)
-        (= (puntos principe1 alg) 5)
-        (= (puntos principe1 oro1) 10)
+        (= (puntos tipoProfe tipoOscar) 3)
+        (= (puntos tipoProfe tipoRosa) 4)
+        (= (puntos tipoProfe tipoManz) 5)
+        (= (puntos tipoProfe tipoAlg) 10)
+        (= (puntos tipoProfe tipoOro) 1)
+      ; puntos para principe1
+        (= (puntos tipoPrincipe tipoOscar) 1)
+        (= (puntos tipoPrincipe tipoRosa) 3)
+        (= (puntos tipoPrincipe tipoManz) 4)
+        (= (puntos tipoPrincipe tipoAlg) 5)
+        (= (puntos tipoPrincipe tipoOro) 10)
         ;distancias
         (= (distancia-total) 0)
         (= (distancia z1 z2) 2)
