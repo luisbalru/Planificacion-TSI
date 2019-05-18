@@ -1,4 +1,4 @@
-(define (domain ejercicio5)
+(define (domain ejercicio6)
     (:requirements :strips :equality :typing :fluents)
     (:types zona orientacion objeto personaje - object
             personaje objeto - locatable
@@ -40,7 +40,8 @@
         (distancia ?x ?y - zona)
         (distancia-total)
         (puntos ?p - tipoPersonaje ?o - tipoObjeto)
-        (puntos-jugador)
+        (puntos-indiv ?x - Player)
+        (puntos-total)
         (huecos-bolsillo ?p - personaje)
     )
 
@@ -200,7 +201,8 @@
                               (es-tipo-o tipoOscar ?o)
                           )
                           (and
-                            (increase (puntos-jugador) (puntos tipoPrincipe tipoOscar))
+                            (increase (puntos-total) (puntos tipoPrincipe tipoOscar))
+                            (increase (puntos-indiv ?x) (puntos tipoPrincipe tipoOscar))
                           )
                     )
                     (when (and
@@ -208,7 +210,8 @@
                               (es-tipo-o tipoRosa ?o)
                           )
                           (and
-                            (increase (puntos-jugador) (puntos tipoPrincipe tipoRosa))
+                            (increase (puntos-total) (puntos tipoPrincipe tipoRosa))
+                            (increase (puntos-indiv ?x) (puntos tipoPrincipe tipoRosa))
                           )
                     )
                     (when (and
@@ -216,7 +219,8 @@
                               (es-tipo-o tipoManz ?o)
                           )
                           (and
-                            (increase (puntos-jugador) (puntos tipoPrincipe tipoManz))
+                            (increase (puntos-total) (puntos tipoPrincipe tipoManz))
+                            (increase (puntos-indiv ?x) (puntos tipoPrincipe tipoManz))
                           )
                     )
                     (when (and
@@ -224,7 +228,8 @@
                               (es-tipo-o tipoAlg ?o)
                           )
                           (and
-                            (increase (puntos-jugador) (puntos tipoPrincipe tipoAlg))
+                            (increase (puntos-total) (puntos tipoPrincipe tipoAlg))
+                            (increase (puntos-indiv ?x) (puntos tipoPrincipe tipoAlg))
                           )
                     )
                     (when (and
@@ -232,7 +237,8 @@
                               (es-tipo-o tipoOro ?o)
                           )
                           (and
-                            (increase (puntos-jugador) (puntos tipoPrincipe tipoOro))
+                            (increase (puntos-total) (puntos tipoPrincipe tipoOro))
+                            (increase (puntos-indiv ?x) (puntos tipoPrincipe tipoOro))
                           )
                     )
                     ; comprobación para tipo princesa
@@ -241,7 +247,8 @@
                               (es-tipo-o tipoOscar ?o)
                           )
                           (and
-                            (increase (puntos-jugador) (puntos tipoPrincesa tipoOscar))
+                            (increase (puntos-total) (puntos tipoPrincesa tipoOscar))
+                            (increase (puntos-indiv ?x) (puntos tipoPrincesa tipoOscar))
                           )
                     )
                     (when (and
@@ -249,7 +256,8 @@
                               (es-tipo-o tipoRosa ?o)
                           )
                           (and
-                            (increase (puntos-jugador) (puntos tipoPrincesa tipoRosa))
+                            (increase (puntos-total) (puntos tipoPrincesa tipoRosa))
+                            (increase (puntos-indiv ?x) (puntos tipoPrincesa tipoRosa))
                           )
                     )
                     (when (and
@@ -257,7 +265,8 @@
                               (es-tipo-o tipoManz ?o)
                           )
                           (and
-                            (increase (puntos-jugador) (puntos tipoPrincesa tipoManz))
+                            (increase (puntos-total) (puntos tipoPrincesa tipoManz))
+                            (increase (puntos-indiv ?x) (puntos tipoPrincesa tipoManz))
                           )
                     )
                     (when (and
@@ -265,7 +274,8 @@
                               (es-tipo-o tipoAlg ?o)
                           )
                           (and
-                            (increase (puntos-jugador) (puntos tipoPrincesa tipoAlg))
+                            (increase (puntos-total) (puntos tipoPrincesa tipoAlg))
+                            (increase (puntos-indiv ?x) (puntos tipoPrincesa tipoAlg))
                           )
                     )
                     (when (and
@@ -273,7 +283,8 @@
                               (es-tipo-o tipoOro ?o)
                           )
                           (and
-                            (increase (puntos-jugador) (puntos tipoPrincesa tipoOro))
+                            (increase (puntos-total) (puntos tipoPrincesa tipoOro))
+                            (increase (puntos-indiv ?x) (puntos tipoPrincesa tipoOro))
                           )
                     )
 
@@ -283,7 +294,8 @@
                               (es-tipo-o tipoOscar ?o)
                           )
                           (and
-                            (increase (puntos-jugador) (puntos tipoBr tipoOscar))
+                            (increase (puntos-total) (puntos tipoBr tipoOscar))
+                            (increase (puntos-indiv ?x) (puntos tipoBr tipoOscar))
                           )
                     )
                     (when (and
@@ -291,7 +303,8 @@
                               (es-tipo-o tipoRosa ?o)
                           )
                           (and
-                            (increase (puntos-jugador) (puntos tipoBr tipoRosa))
+                            (increase (puntos-total) (puntos tipoBr tipoRosa))
+                            (increase (puntos-indiv ?x) (puntos tipoBr tipoRosa))
                           )
                     )
                     (when (and
@@ -299,7 +312,8 @@
                               (es-tipo-o tipoManz ?o)
                           )
                           (and
-                            (increase (puntos-jugador) (puntos tipoBr tipoManz))
+                            (increase (puntos-total) (puntos tipoBr tipoManz))
+                            (increase (puntos-indiv ?x) (puntos tipoBr tipoRosa))
                           )
                     )
                     (when (and
@@ -307,7 +321,8 @@
                               (es-tipo-o tipoAlg ?o)
                           )
                           (and
-                            (increase (puntos-jugador) (puntos tipoBr tipoAlg))
+                            (increase (puntos-total) (puntos tipoBr tipoAlg))
+                            (increase (puntos-indiv ?x) (puntos tipoBr tipoAlg))
                           )
                     )
                     (when (and
@@ -315,7 +330,8 @@
                               (es-tipo-o tipoOro ?o)
                           )
                           (and
-                            (increase (puntos-jugador) (puntos tipoBr tipoOro))
+                            (increase (puntos-total) (puntos tipoBr tipoOro))
+                            (increase (puntos-indiv ?x) (puntos tipoBr tipoOro))
                           )
                     )
 
@@ -325,7 +341,8 @@
                             (es-tipo-o tipoOscar ?o)
                         )
                         (and
-                          (increase (puntos-jugador) (puntos tipoProfe tipoOscar))
+                          (increase (puntos-total) (puntos tipoProfe tipoOscar))
+                          (increase (puntos-indiv ?x) (puntos tipoProfe tipoOscar))
                         )
                   )
                   (when (and
@@ -333,7 +350,8 @@
                             (es-tipo-o tipoRosa ?o)
                         )
                         (and
-                          (increase (puntos-jugador) (puntos tipoProfe tipoRosa))
+                          (increase (puntos-total) (puntos tipoProfe tipoRosa))
+                          (increase (puntos-indiv ?x) (puntos tipoProfe tipoRosa))
                         )
                   )
                   (when (and
@@ -341,7 +359,8 @@
                             (es-tipo-o tipoManz ?o)
                         )
                         (and
-                          (increase (puntos-jugador) (puntos tipoProfe tipoManz))
+                          (increase (puntos-total) (puntos tipoProfe tipoManz))
+                          (increase (puntos-indiv ?x) (puntos tipoProfe tipoManz))
                         )
                   )
                   (when (and
@@ -349,7 +368,8 @@
                             (es-tipo-o tipoAlg ?o)
                         )
                         (and
-                          (increase (puntos-jugador) (puntos tipoProfe tipoAlg))
+                          (increase (puntos-total) (puntos tipoProfe tipoAlg))
+                          (increase (puntos-indiv ?x) (puntos tipoProfe tipoAlg))
                         )
                   )
                   (when (and
@@ -357,7 +377,8 @@
                             (es-tipo-o tipoOro ?o)
                         )
                         (and
-                          (increase (puntos-jugador) (puntos tipoProfe tipoOro))
+                          (increase (puntos-total) (puntos tipoProfe tipoOro))
+                          (increase (puntos-indiv ?x) (puntos tipoProfe tipoOro))
                         )
                   )
 
@@ -367,7 +388,8 @@
                             (es-tipo-o tipoOscar ?o)
                         )
                         (and
-                          (increase (puntos-jugador) (puntos tipoLeo tipoOscar))
+                          (increase (puntos-total) (puntos tipoLeo tipoOscar))
+                          (increase (puntos-indiv ?x) (puntos tipoLeo tipoOscar))
                         )
                   )
                   (when (and
@@ -375,7 +397,8 @@
                             (es-tipo-o tipoRosa ?o)
                         )
                         (and
-                          (increase (puntos-jugador) (puntos tipoLeo tipoRosa))
+                          (increase (puntos-total) (puntos tipoLeo tipoRosa))
+                          (increase (puntos-indiv ?x) (puntos tipoLeo tipoRosa))
                         )
                   )
                   (when (and
@@ -383,7 +406,8 @@
                             (es-tipo-o tipoManz ?o)
                         )
                         (and
-                          (increase (puntos-jugador) (puntos tipoLeo tipoManz))
+                          (increase (puntos-total) (puntos tipoLeo tipoManz))
+                          (increase (puntos-indiv ?x) (puntos tipoLeo tipoManz))
                         )
                   )
                   (when (and
@@ -391,7 +415,8 @@
                             (es-tipo-o tipoAlg ?o)
                         )
                         (and
-                          (increase (puntos-jugador) (puntos tipoLeo tipoAlg))
+                          (increase (puntos-total) (puntos tipoLeo tipoAlg))
+                          (increase (puntos-indiv ?x) (puntos tipoLeo tipoAlg))
                         )
                   )
                   (when (and
@@ -399,7 +424,8 @@
                             (es-tipo-o tipoOro ?o)
                         )
                         (and
-                          (increase (puntos-jugador) (puntos tipoLeo tipoOro))
+                          (increase (puntos-total) (puntos tipoLeo tipoOro))
+                          (increase (puntos-indiv ?x) (puntos tipoLeo tipoOro))
                         )
                   )
 
