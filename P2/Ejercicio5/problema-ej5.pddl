@@ -44,7 +44,7 @@
       ; objetos en zonas
       (en luis z1)
       (en princesa1 z4)
-      ;(en zap z3)
+      (en zap z3)
       (en principe1 z6)
       (en bruja1 z15)
       (en profesor1 z10)
@@ -61,13 +61,15 @@
       (en alg2 z16)
       (mochila-vacia luis)
       (mano-vacia luis)
+      
       (= (huecos-bolsillo bruja1) 3)
       (= (huecos-bolsillo profesor1) 3)
       (= (huecos-bolsillo leonardo1) 3)
       (= (huecos-bolsillo principe1) 3)
       (= (huecos-bolsillo princesa1) 3)
 
-      ;(es-bosque z10)
+      (es-bosque z11)
+      (es-bosque z12)
       (orientado luis sur)
       (or-sig-iz norte oeste)
       (or-sig-iz oeste sur)
