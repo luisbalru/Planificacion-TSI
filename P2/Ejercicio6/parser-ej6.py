@@ -23,7 +23,8 @@ relaciones = []
 dominio = ""
 problema = ""
 num_zonas = ""
-puntos = ""
+puntos_totales = ""
+puntos_ind = 
 
 dominio = f_en.readline()
 dominio = dominio.split("Dominio:")[1]
