@@ -1,8 +1,9 @@
-(define (domain ejercicio6)
+(define (domain ejercicio7)
     (:requirements :strips :equality :typing :fluents)
     (:types zona orientacion objeto personaje - object
             personaje objeto - locatable
             Princesa Principe Bruja Profesor Leonardo Player - personaje
+            Picker Dealer - Player
             oscar manzana rosa algoritmo oro Zapatilla Bikini - objeto)
 
     (:constants
@@ -39,10 +40,9 @@
     (:functions
         (distancia ?x ?y - zona)
         (distancia-total)
-        (puntos ?p - tipoPersonaje ?o - tipoObjeto)
-        (puntos-indiv ?x - Player)
-        (puntos-total)
+        (puntos-indiv ?x - Dealer)
         (huecos-bolsillo ?p - personaje)
+        (puntos ?t - tipoPersonaje ?o - tipoObjeto)
     )
 
     (:action GIRAR-IZQ
@@ -72,7 +72,7 @@
     )
 
     (:action COGER
-        :parameters(?x - Player ?o - objeto ?z - zona)
+        :parameters(?x - Picker ?o - objeto ?z - zona)
         :precondition(and
                         (en ?x ?z)
                         (en ?o ?z)
@@ -175,14 +175,45 @@
                 )
     )
 
-    ; no sé cómo van las posiciones (tiene que estar en la misma, conectadas y con la orientación correcta ?????)
-    (:action ENTREGAR
-        :parameters(?x - Player ?p - personaje  ?o - objeto ?z - zona)
+    (:action DAR-DEALER
+        :parameters(?d - Dealer ?p - Picker ?o - objeto ?z - zona)
+        :precondition(and
+                          (en ?d ?z)
+                          (en ?p ?z)
+                          (posee-mano ?p ?o)
+                          (mano-vacia ?d)
+                     )
+        :effect(and
+                  (when (and (es-bikini ?o))
+                      (and
+                          (not (tiene-bikini ?p))
+                          (tiene-bikini ?d)
+                      )
+                  )
+                  (when (and (es-zapatilla ?o))
+                      (and
+                          (not (tiene-zapatilla ?p))
+                          (tiene-zapatilla ?d)
+                      )
+                  )
+                  (not (posee-mano ?p ?o))
+                  (mano-vacia ?p)
+                  (posee-mano ?d ?o)
+                  (not (mano-vacia ?d))
+               )
+
+
+    )
+
+    (:action ENTREGAR-PERSONAJE
+        :parameters(?x - Dealer ?p - personaje  ?o - objeto ?z - zona)
         :precondition(and
                         (en ?x ?z)
                         (en ?p ?z)
                         (>= (huecos-bolsillo ?p ) 1)
                         (posee-mano ?x ?o)
+                        (not (es-zapatilla ?o))
+                        (not (es-bikini ?o))
                      )
         :effect(and
                     (when (and (es-bikini ?o))
@@ -201,7 +232,6 @@
                               (es-tipo-o tipoOscar ?o)
                           )
                           (and
-                            (increase (puntos-total) (puntos tipoPrincipe tipoOscar))
                             (increase (puntos-indiv ?x) (puntos tipoPrincipe tipoOscar))
                           )
                     )
@@ -210,7 +240,6 @@
                               (es-tipo-o tipoRosa ?o)
                           )
                           (and
-                            (increase (puntos-total) (puntos tipoPrincipe tipoRosa))
                             (increase (puntos-indiv ?x) (puntos tipoPrincipe tipoRosa))
                           )
                     )
@@ -219,7 +248,6 @@
                               (es-tipo-o tipoManz ?o)
                           )
                           (and
-                            (increase (puntos-total) (puntos tipoPrincipe tipoManz))
                             (increase (puntos-indiv ?x) (puntos tipoPrincipe tipoManz))
                           )
                     )
@@ -228,7 +256,6 @@
                               (es-tipo-o tipoAlg ?o)
                           )
                           (and
-                            (increase (puntos-total) (puntos tipoPrincipe tipoAlg))
                             (increase (puntos-indiv ?x) (puntos tipoPrincipe tipoAlg))
                           )
                     )
@@ -237,7 +264,6 @@
                               (es-tipo-o tipoOro ?o)
                           )
                           (and
-                            (increase (puntos-total) (puntos tipoPrincipe tipoOro))
                             (increase (puntos-indiv ?x) (puntos tipoPrincipe tipoOro))
                           )
                     )
@@ -247,7 +273,6 @@
                               (es-tipo-o tipoOscar ?o)
                           )
                           (and
-                            (increase (puntos-total) (puntos tipoPrincesa tipoOscar))
                             (increase (puntos-indiv ?x) (puntos tipoPrincesa tipoOscar))
                           )
                     )
@@ -256,7 +281,6 @@
                               (es-tipo-o tipoRosa ?o)
                           )
                           (and
-                            (increase (puntos-total) (puntos tipoPrincesa tipoRosa))
                             (increase (puntos-indiv ?x) (puntos tipoPrincesa tipoRosa))
                           )
                     )
@@ -265,7 +289,6 @@
                               (es-tipo-o tipoManz ?o)
                           )
                           (and
-                            (increase (puntos-total) (puntos tipoPrincesa tipoManz))
                             (increase (puntos-indiv ?x) (puntos tipoPrincesa tipoManz))
                           )
                     )
@@ -274,7 +297,6 @@
                               (es-tipo-o tipoAlg ?o)
                           )
                           (and
-                            (increase (puntos-total) (puntos tipoPrincesa tipoAlg))
                             (increase (puntos-indiv ?x) (puntos tipoPrincesa tipoAlg))
                           )
                     )
@@ -283,7 +305,6 @@
                               (es-tipo-o tipoOro ?o)
                           )
                           (and
-                            (increase (puntos-total) (puntos tipoPrincesa tipoOro))
                             (increase (puntos-indiv ?x) (puntos tipoPrincesa tipoOro))
                           )
                     )
@@ -294,7 +315,6 @@
                               (es-tipo-o tipoOscar ?o)
                           )
                           (and
-                            (increase (puntos-total) (puntos tipoBr tipoOscar))
                             (increase (puntos-indiv ?x) (puntos tipoBr tipoOscar))
                           )
                     )
@@ -303,7 +323,6 @@
                               (es-tipo-o tipoRosa ?o)
                           )
                           (and
-                            (increase (puntos-total) (puntos tipoBr tipoRosa))
                             (increase (puntos-indiv ?x) (puntos tipoBr tipoRosa))
                           )
                     )
@@ -312,7 +331,6 @@
                               (es-tipo-o tipoManz ?o)
                           )
                           (and
-                            (increase (puntos-total) (puntos tipoBr tipoManz))
                             (increase (puntos-indiv ?x) (puntos tipoBr tipoRosa))
                           )
                     )
@@ -321,7 +339,6 @@
                               (es-tipo-o tipoAlg ?o)
                           )
                           (and
-                            (increase (puntos-total) (puntos tipoBr tipoAlg))
                             (increase (puntos-indiv ?x) (puntos tipoBr tipoAlg))
                           )
                     )
@@ -330,7 +347,6 @@
                               (es-tipo-o tipoOro ?o)
                           )
                           (and
-                            (increase (puntos-total) (puntos tipoBr tipoOro))
                             (increase (puntos-indiv ?x) (puntos tipoBr tipoOro))
                           )
                     )
@@ -341,7 +357,6 @@
                             (es-tipo-o tipoOscar ?o)
                         )
                         (and
-                          (increase (puntos-total) (puntos tipoProfe tipoOscar))
                           (increase (puntos-indiv ?x) (puntos tipoProfe tipoOscar))
                         )
                   )
@@ -350,7 +365,6 @@
                             (es-tipo-o tipoRosa ?o)
                         )
                         (and
-                          (increase (puntos-total) (puntos tipoProfe tipoRosa))
                           (increase (puntos-indiv ?x) (puntos tipoProfe tipoRosa))
                         )
                   )
@@ -359,7 +373,6 @@
                             (es-tipo-o tipoManz ?o)
                         )
                         (and
-                          (increase (puntos-total) (puntos tipoProfe tipoManz))
                           (increase (puntos-indiv ?x) (puntos tipoProfe tipoManz))
                         )
                   )
@@ -368,7 +381,6 @@
                             (es-tipo-o tipoAlg ?o)
                         )
                         (and
-                          (increase (puntos-total) (puntos tipoProfe tipoAlg))
                           (increase (puntos-indiv ?x) (puntos tipoProfe tipoAlg))
                         )
                   )
@@ -377,7 +389,6 @@
                             (es-tipo-o tipoOro ?o)
                         )
                         (and
-                          (increase (puntos-total) (puntos tipoProfe tipoOro))
                           (increase (puntos-indiv ?x) (puntos tipoProfe tipoOro))
                         )
                   )
@@ -388,7 +399,6 @@
                             (es-tipo-o tipoOscar ?o)
                         )
                         (and
-                          (increase (puntos-total) (puntos tipoLeo tipoOscar))
                           (increase (puntos-indiv ?x) (puntos tipoLeo tipoOscar))
                         )
                   )
@@ -397,7 +407,6 @@
                             (es-tipo-o tipoRosa ?o)
                         )
                         (and
-                          (increase (puntos-total) (puntos tipoLeo tipoRosa))
                           (increase (puntos-indiv ?x) (puntos tipoLeo tipoRosa))
                         )
                   )
@@ -406,7 +415,6 @@
                             (es-tipo-o tipoManz ?o)
                         )
                         (and
-                          (increase (puntos-total) (puntos tipoLeo tipoManz))
                           (increase (puntos-indiv ?x) (puntos tipoLeo tipoManz))
                         )
                   )
@@ -415,7 +423,6 @@
                             (es-tipo-o tipoAlg ?o)
                         )
                         (and
-                          (increase (puntos-total) (puntos tipoLeo tipoAlg))
                           (increase (puntos-indiv ?x) (puntos tipoLeo tipoAlg))
                         )
                   )
@@ -424,7 +431,6 @@
                             (es-tipo-o tipoOro ?o)
                         )
                         (and
-                          (increase (puntos-total) (puntos tipoLeo tipoOro))
                           (increase (puntos-indiv ?x) (puntos tipoLeo tipoOro))
                         )
                   )

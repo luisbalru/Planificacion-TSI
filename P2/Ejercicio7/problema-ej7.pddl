@@ -1,5 +1,5 @@
-(define (problem prueba1-ej6)
-    (:domain ejercicio6)
+(define (problem prueba1-ej7)
+    (:domain ejercicio7)
     (:objects
         z1 z2 z3 z4 z5 z6 z7 z8 z9 z10 z11 z12 z13 z14 z15 z16 z17 z18 z19 z20 z21 z22 z23 z24 z25 - zona
         princesa1 - Princesa
@@ -13,8 +13,8 @@
         oro1 - oro
         alg - algoritmo
         zap - Zapatilla
-        luis - Player
-        manolete - Player
+        luis - Dealer
+        manolete - Picker
         oscar2 - oscar
         manzana2 - manzana
         rosa2 - rosa
@@ -47,6 +47,7 @@
       (en manolete z20)
       (en princesa1 z4)
       (en zap z3)
+      (es-zapatilla zap)
       (en principe1 z6)
       (en bruja1 z15)
       (en profesor1 z10)
@@ -173,12 +174,10 @@
       (conectadas z20 z25 sur)
       (conectadas z25 z20 norte)
 
-      ; puntos conjuntos
-      (= (puntos-total) 0)
+
       ; puntos luis
       (= (puntos-indiv luis) 0)
       ;puntos manolete
-      (= (puntos-indiv manolete) 0)
       ; puntos para leonardo1
       (= (puntos tipoLeo tipoOscar) 10)
       (= (puntos tipoLeo tipoRosa) 1)
@@ -299,9 +298,7 @@
                 (tiene-objeto leonardo1)
                 (tiene-objeto profesor1)
                 (<= (distancia-total) 700)
-                (>= (puntos-indiv luis) 10)
-                (>= (puntos-indiv manolete) 10)
-                (>= (puntos-total) 30)
+                (>= (puntos-indiv luis) 20)
             )
     )
 )
