@@ -147,16 +147,18 @@
                         (orientado ?j ?or)
                         (not (es-precipicio ?y))
                         (or
-                            (es-bosque ?y)
-                            (tiene-zapatilla ?j)
-                            (or
-                                (not (es-bosque ?y))
-                                (es-agua ?y)
-                                (tiene-bikini ?j)
-                                (and
-                                    (not (es-agua ?y))
-                                )
+                            (not (es-bosque ?y))
+                            (and
+                                (es-bosque ?y)
+                                (tiene-zapatilla ?j)
                             )
+                        )
+                        (or
+                          (not (es-agua ?y))
+                          (and
+                              (es-agua ?y)
+                              (tiene-bikini ?j)
+                          )
                         )
                      )
         :effect(and
