@@ -23,6 +23,7 @@
              (different ?x ?y) (igual ?x ?y)
              (hay-fuel ?a ?c1 ?c2)
              (gasto-adecuado ?a)
+             (destino ?p - person ?c - city)
              )
 (:functions (fuel ?a - aircraft)
             (distance ?c1 - city ?c2 - city)
@@ -61,7 +62,6 @@
 	 :precondition (at ?p ?c)
 	 :tasks ()
    )
-
 
    (:method Case2
 	  :precondition (and (at ?p - person ?c1 - city)
@@ -135,6 +135,48 @@
             (refuel ?a ?c1)
       )
   )
+)
+
+(:task montar-persona
+  :parameters(?a - aircraft ?c - city)
+  (:method no-hay
+    :precondition(or
+                    (not (at ?p - person ?c))
+                    (> (num-pasajeros ?a) (limite-pasajeros ?a))
+                  )
+    :task()
+  )
+  (:method quedan
+    :precondition(and
+                    (at ?p - person ?c)
+                    (at ?a ?c)
+                    (< (num-pasajeros ?a) (limite-pasajeros ?a))
+                    (not (destino ?p - person ?c))
+                  )
+    :task(and
+            (board ?p - person ?a ?c)
+            (montar-persona ?a ?c)
+         )
+  )
+)
+
+(:task bajar-persona
+  :parameters(?a - aircraft ?c - city)
+  (:method no-hay
+    :precondition()
+    :task()
+  )
+  (:method quedan
+    :precondition(and
+                    (at ?p - person ?c)
+                    (at ?a ?c)
+                    (destino ?p - person ?c)
+                  )
+    :task(and
+            (debark ?p - person ?a ?c)
+            (bajar-persona ?a ?c)
+          )
+    )
 )
 
 (:import "Primitivas-ZenoTravel.pddl")
