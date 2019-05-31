@@ -35,11 +35,13 @@
             (refuel-rate ?a - aircraft)
             (num-pasajeros ?a - aircraft)
             (limite-pasajeros ?a - aircraft)
-            (fuel-limit)
+            (fuel-limit ?a - aircraft)
             (total-fuel-used)
             (boarding-time)
             (debarking-time)
-            )
+            (limite-horas ?a - aircraft)
+            (tiempo-vuelo ?a - aircraft)
+)
 
 ;; el consecuente "vac�o" se representa como "()" y significa "siempre verdad"
 (:derived
