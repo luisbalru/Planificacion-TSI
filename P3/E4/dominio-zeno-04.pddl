@@ -65,23 +65,35 @@
 
    (:method Case2
 	  :precondition (and (at ?p - person ?c1 - city)
-			                 (at ?a - aircraft ?c1 - city))
-
+			                 (at ?a - aircraft ?c1 - city)
+                       ())
 
 	  :tasks (
-	  	      (board ?p ?a ?c1)
+	  	      (montar-persona ?a ?c)
 		        (mover-avion ?a ?c1 ?c)
-		        (debark ?p ?a ?c )))
-
+		        (bajar-persona ?a ?c))
+  )
   (:method Case3
     :precondition (and (at ?p - person ?c1 - city)
                         (at ?a - aircraft ?c2 - city))
     :tasks(
             (mover-avion ?a ?c2 ?c1)
-            (board ?p ?a ?c1)
+            (montar-persona ?a ?c)
             (mover-avion ?a ?c1 ?c)
-		        (debark ?p ?a ?c ))
-    )
+		        (bajar-persona ?a ?c))
+  )
+  (:method Case4
+      :precondition (and
+                      (in ?p ?a - aircraft)
+                      (at ?a - aircraft ?c1 - city)
+                      (not (destino ?p ?c1))
+                    )
+      :task(
+              (mover-avion ?a ?c1 ?c)
+              (bajar-persona ?a ?c)
+          )
+
+  )
 )
 
 (:task mover-avion
@@ -100,6 +112,12 @@
             (repostar ?a ?c1 ?c2)
             (volar ?a ?c1 ?c2)
           )
+  )
+  (:method en-destino
+    :precondition(and
+                    (at ?a ?c2)
+                  )
+    :task()
   )
 )
 
@@ -162,10 +180,6 @@
 
 (:task bajar-persona
   :parameters(?a - aircraft ?c - city)
-  (:method no-hay
-    :precondition()
-    :task()
-  )
   (:method quedan
     :precondition(and
                     (at ?p - person ?c)
@@ -176,6 +190,10 @@
             (debark ?p - person ?a ?c)
             (bajar-persona ?a ?c)
           )
+    )
+    (:method no-hay
+      :precondition()
+      :task()
     )
 )
 
