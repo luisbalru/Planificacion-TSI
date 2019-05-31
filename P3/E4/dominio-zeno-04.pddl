@@ -88,9 +88,9 @@
       :precondition (and
                       (in ?p ?a - aircraft)
                       (at ?a - aircraft ?c1 - city)
-                      (not (destino ?p ?c1))
+                      (not (destino ?p - person ?c1))
                     )
-      :task(
+      :tasks(
               (mover-avion ?a ?c1 ?c)
               (bajar-persona ?a ?c)
           )
