@@ -1,4 +1,4 @@
- (define (domain ejercicio5)
+(define (domain ejercicio3)
     (:requirements :strips :equality :typing :fluents)
     (:types zona orientacion objeto personaje - object
             personaje objeto - locatable
@@ -12,36 +12,34 @@
     )
 
     (:predicates
-        (conectadas ?x - zona ?y - zona ?o - orientacion)
-        (orientado ?j - Player ?o - orientacion)
-        (mano-vacia ?j - Player)
-        (mochila-vacia ?j - Player)
-        (posee-mano ?x - Player ?o - objeto)
-        (posee-mochila ?x - Player ?o - objeto)
-        (es-tipo-p ?t - tipoPersonaje ?p - personaje)
-        (es-tipo-o ?to - tipoObjeto ?o - objeto)
-        (en ?l - locatable ?z - zona)
-        (es-bikini ?o - objeto)
-        (es-zapatilla ?o - objeto)
-        (tiene-bikini ?x - Player)
-        (tiene-zapatilla ?x - Player)
-        (es-bosque ?z - zona)
-        (es-agua ?z - zona)
-        (es-precipicio ?z - zona)
-        (es-arena ?z - zona)
-        (es-piedra ?z - zona)
-        (tiene-objeto ?p - personaje)
-        (or-sig-iz ?actual - orientacion ?siguiente - orientacion)
-        (or-sig-der ?actual - orientacion ?siguiente - orientacion)
+      (conectadas ?x - zona ?y - zona ?o - orientacion)
+      (orientado ?j - Player ?o - orientacion)
+      (mano-vacia ?j - Player)
+      (mochila-vacia ?j - Player)
+      (posee-mano ?x - Player ?o - objeto)
+      (posee-mochila ?x - Player ?o - objeto)
+      (es-tipo-p ?t - tipoPersonaje ?p - personaje)
+      (es-tipo-o ?to - tipoObjeto ?o - objeto)
+      (en ?l - locatable ?z - zona)
+      (es-bikini ?o - objeto)
+      (es-zapatilla ?o - objeto)
+      (tiene-bikini ?x - Player)
+      (tiene-zapatilla ?x - Player)
+      (es-bosque ?z - zona)
+      (es-agua ?z - zona)
+      (es-precipicio ?z - zona)
+      (es-arena ?z - zona)
+      (es-piedra ?z - zona)
+      (tiene-objeto ?p - personaje)
+      (or-sig-iz ?actual - orientacion ?siguiente - orientacion)
+      (or-sig-der ?actual - orientacion ?siguiente - orientacion)
     )
 
-
     (:functions
-        (distancia ?x ?y - zona)
-        (distancia-total)
-        (puntos ?p - tipoPersonaje ?o - tipoObjeto)
-        (puntos-jugador)
-        (huecos-bolsillo ?p - personaje)
+      (distancia ?x ?y - zona)
+      (distancia-total)
+      (puntos ?p - tipoPersonaje ?o - tipoObjeto)
+      (puntos-jugador)
     )
 
     (:action GIRAR-IZQ
@@ -155,17 +153,20 @@
                         (orientado ?j ?or)
                         (not (es-precipicio ?y))
                         (or
-                            (es-bosque ?y)
-                            (tiene-zapatilla ?j)
-                            (or
-                                (not (es-bosque ?y))
-                                (es-agua ?y)
-                                (tiene-bikini ?j)
-                                (and
-                                    (not (es-agua ?y))
-                                )
+                            (not (es-bosque ?y))
+                            (and
+                                (es-bosque ?y)
+                                (tiene-zapatilla ?j)
                             )
                         )
+                        (or
+                          (not (es-agua ?y))
+                          (and
+                              (es-agua ?y)
+                              (tiene-bikini ?j)
+                          )
+                        )
+
                      )
         :effect(and
                     (en ?j ?y)
@@ -174,13 +175,12 @@
                 )
     )
 
-    ; no sé cómo van las posiciones (tiene que estar en la misma, conectadas y con la orientación correcta ?????)
+
     (:action ENTREGAR
         :parameters(?x - Player ?p - personaje  ?o - objeto ?z - zona)
         :precondition(and
                         (en ?x ?z)
                         (en ?p ?z)
-                        (>= (huecos-bolsillo ?p ) 1)
                         (posee-mano ?x ?o)
                      )
         :effect(and
@@ -407,7 +407,6 @@
                     (tiene-objeto ?p)
                     (mano-vacia ?x)
                     (not (posee-mano ?x ?o))
-                    (decrease (huecos-bolsillo ?p) 1)
                )
     )
 

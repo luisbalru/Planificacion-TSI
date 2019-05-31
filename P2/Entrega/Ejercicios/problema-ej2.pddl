@@ -1,76 +1,35 @@
-(define (problem prueba1-ej5)
-    (:domain ejercicio5)
+(define (problem prueba1-ej2)
+    (:domain ejercicio2)
     (:objects
         z1 z2 z3 z4 z5 z6 z7 z8 z9 z10 z11 z12 z13 z14 z15 z16 z17 z18 z19 z20 z21 z22 z23 z24 z25 - zona
         princesa1 - Princesa
         principe1 - Principe
         bruja1 - Bruja
         profesor1 - Profesor
-        leonardo1 - Leonardo
+        dicaprio1 - Leonardo
         oscar1 - oscar
         manzana1 - manzana
         rosa1 - rosa
         oro1 - oro
         alg - algoritmo
-        zap - Zapatilla
         luis - Player
-        oscar2 - oscar
-        manzana2 - manzana
-        rosa2 - rosa
-        oro2 - oro
-        alg2 - algoritmo
-        zap2 - Zapatilla
     )
     (:init
-      ; definición de tipos personajes
-      (es-tipo-p tipoPrincipe principe1)
-      (es-tipo-p tipoPrincesa princesa1)
-      (es-tipo-p tipoProfe profesor1)
-      (es-tipo-p tipoBr bruja1)
-      (es-tipo-p tipoLeo leonardo1)
-
-      ; definición de tipos objetos
-      (es-tipo-o tipoOscar oscar1)
-      (es-tipo-o tipoOscar oscar2)
-      (es-tipo-o tipoManz manzana1)
-      (es-tipo-o tipoManz manzana2)
-      (es-tipo-o tipoRosa rosa1)
-      (es-tipo-o tipoRosa rosa2)
-      (es-tipo-o tipoAlg alg)
-      (es-tipo-o tipoAlg alg2)
-      (es-tipo-o tipoOro oro1)
-      (es-tipo-o tipoOro oro2)
-
-      ; objetos en zonas
       (en luis z1)
+      (mano-vacia luis)
       (en princesa1 z4)
-      (en zap z3)
       (en principe1 z6)
       (en bruja1 z15)
       (en profesor1 z10)
-      (en leonardo1 z20)
+      (en dicaprio1 z20)
       (en oscar1 z13)
       (en manzana1 z3)
       (en rosa1 z18)
       (en oro1 z23)
       (en alg z16)
-      (en oscar2 z13)
-      (en manzana2 z3)
-      (en rosa2 z18)
-      (en oro2 z23)
-      (en alg2 z16)
-      (mochila-vacia luis)
-      (mano-vacia luis)
-
-      (= (huecos-bolsillo bruja1) 3)
-      (= (huecos-bolsillo profesor1) 3)
-      (= (huecos-bolsillo leonardo1) 3)
-      (= (huecos-bolsillo principe1) 3)
-      (= (huecos-bolsillo princesa1) 3)
-
-      (es-bosque z11)
-      (es-bosque z12)
       (orientado luis sur)
+
+      ; orientaciones
       (or-sig-iz norte oeste)
       (or-sig-iz oeste sur)
       (or-sig-iz sur este)
@@ -80,21 +39,12 @@
       (or-sig-der sur oeste)
       (or-sig-der oeste norte)
 
-      (es-bosque z2)
-        (es-bosque z7)
-        ;(es-bosque z6)
-        (es-agua z4)
-        (es-agua z9)
-        (es-agua z22)
-        (es-agua z23)
-        (es-agua z25)
-        (es-precipicio z21)
-
-        ; z1  z2B  z3  z4A  z5
-        ; z6  z7B  z8  z9A  z10
-        ; z11 z12 z13 z14 z15
-        ; z16 z17 z18B z19 z20
-        ; z21P z22A z23A z24 z25A
+      ;ZONAS
+      ; z1  z2  z3  z4  z5
+      ; z6  z7  z8  z9  z10
+      ; z11 z12 z13 z14 z15
+      ; z16 z17 z18 z19 z20
+      ; z21 z22 z23 z24 z25
       (conectadas z1 z2 este)
       (conectadas z2 z1 oeste)
       (conectadas z2 z3 este)
@@ -178,38 +128,6 @@
       (conectadas z20 z25 sur)
       (conectadas z25 z20 norte)
 
-      ; puntos de luis
-      (= (puntos-jugador) 0)
-      ; puntos para leonardo1
-      (= (puntos tipoLeo tipoOscar) 10)
-      (= (puntos tipoLeo tipoRosa) 1)
-      (= (puntos tipoLeo tipoManz) 3)
-      (= (puntos tipoLeo tipoAlg) 4)
-      (= (puntos tipoLeo tipoOro) 5)
-      ; puntos para princesa1
-      (= (puntos tipoPrincesa tipoOscar) 5)
-      (= (puntos tipoPrincesa tipoRosa) 10)
-      (= (puntos tipoPrincesa tipoManz) 1)
-      (= (puntos tipoPrincesa tipoAlg) 3)
-      (= (puntos tipoPrincesa tipoOro) 4)
-    ; puntos para bruja1
-      (= (puntos tipoBr tipoOscar) 4)
-      (= (puntos tipoBr tipoRosa) 5)
-      (= (puntos tipoBr tipoManz) 10)
-      (= (puntos tipoBr tipoAlg) 1)
-      (= (puntos tipoBr tipoOro) 3)
-      ; puntos para profesor1
-      (= (puntos tipoProfe tipoOscar) 3)
-      (= (puntos tipoProfe tipoRosa) 4)
-      (= (puntos tipoProfe tipoManz) 5)
-      (= (puntos tipoProfe tipoAlg) 10)
-      (= (puntos tipoProfe tipoOro) 1)
-    ; puntos para principe1
-      (= (puntos tipoPrincipe tipoOscar) 1)
-      (= (puntos tipoPrincipe tipoRosa) 3)
-      (= (puntos tipoPrincipe tipoManz) 4)
-      (= (puntos tipoPrincipe tipoAlg) 5)
-      (= (puntos tipoPrincipe tipoOro) 10)
       ;distancias
       (= (distancia-total) 0)
       (= (distancia z1 z2) 2)
@@ -297,10 +215,9 @@
                 (tiene-objeto princesa1)
                 (tiene-objeto principe1)
                 (tiene-objeto bruja1)
-                (tiene-objeto leonardo1)
+                (tiene-objeto dicaprio1)
                 (tiene-objeto profesor1)
-                (<= (distancia-total) 700)
-                (>= (puntos-jugador) 20)
+                (<= (distancia-total) 100)
             )
     )
 )

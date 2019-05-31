@@ -1,9 +1,6 @@
 # -*- coding: utf-8 -*-
 
-
 # Autor: Luis Balderas Ruiz
-# Introduzco un cambio: Para poder mantener la consistencia con los parser anteriores, las zonas vendrán definidas por paréntesis:
-#           z1[bruja1-Bruja](Bosque) en vez de z1[bruja1-Bruja][Bosque]
 # Técnicas de los Sistemas Inteligentes. UGR 2019
 
 import sys
@@ -24,8 +21,6 @@ relaciones = []
 
 dominio = ""
 problema = ""
-num_zonas = ""
-puntos = ""
 
 dominio = f_en.readline()
 dominio = dominio.split("Dominio:")[1]
@@ -33,10 +28,6 @@ dominio = dominio[:-1]
 problema = f_en.readline()
 problema = problema.split("Problema:")[1]
 problema = problema[:-1]
-num_zonas = f_en.readline()
-num_zonas = problema.split("numero-zonas:")[1][:-1]
-puntos = f_en.readline()
-puntos = puntos.split("puntos_totales:")[1][:-1]
 
 for line in f_en:
     if "->" in line:
@@ -48,14 +39,14 @@ for line in f_en:
         while(i+1 < len(zones)):
             if i%2 == 0:
             	if O == 'V':
-            		a = "(conectadas " + zones[i].split("[")[0] + " " + zones[i+2].split("[")[0] + " sur)\n"
+            		a = "(conectadas " + zones[i].split("[")[0] + " " + zones[i+1].split("[")[0] + " sur)\n"
             		relaciones.append(a)
-            		a = "(conectadas " + zones[i+2].split("[")[0] + " " + zones[i].split("[")[0] + " norte)\n"
+            		a = "(conectadas " + zones[i+1].split("[")[0] + " " + zones[i].split("[")[0] + " norte)\n"
             		relaciones.append(a)
             	else:
-            		a = "(conectadas " + zones[i].split("[")[0] + " " + zones[i+2].split("[")[0] + " este)\n"
+            		a = "(conectadas " + zones[i].split("[")[0] + " " + zones[i+1].split("[")[0] + " este)\n"
             		relaciones.append(a)
-            		a = "(conectadas " + zones[i+2].split("[")[0] + " " + zones[i].split("[")[0] + " oeste)\n"
+            		a = "(conectadas " + zones[i+1].split("[")[0] + " " + zones[i].split("[")[0] + " oeste)\n"
             		relaciones.append(a)
             else:
                 a = "(= (distancia " + zones[i-1].split("[")[0] + " " + zones[i+1].split("[")[0] +") " + zones[i] +")\n"
@@ -69,17 +60,6 @@ for line in f_en:
             if l[0] not in zonas and len(l) > 1:
                 zonas.append(l[0])
                 ob = l[1].split("]")[0].split(",")
-                terreno = l[1].split("]")[1]
-                terreno = terreno[1:-1]
-                if terreno == 'Bosque':
-                    a = "(es-bosque " + l[0] + ")\n"
-                    relaciones.append(a)
-                elif terreno == "Agua":
-                    a = "(es-agua " + l[0] + ")\n"
-                    relaciones.append(a)
-                elif terreno == "Precipicio":
-                    a = "(es-precipicio" + l[0] + ")\n"
-                    relaciones.append(a)
                 objects.append(ob)
                 per_ob = []
                 for o in ob:
@@ -120,14 +100,12 @@ for i in range(len(zonas)):
 			f_sal.write("\t\t (en " + c + " " + zonas[i] + ")\n")
 f_sal.write("\t )\n")
 f_sal.write("\t (:goal (and\n")
-"""
 for o in objects:
 	for ob in o:
 		if ob != '' and 'Player' not in ob:
+			print(ob)
 			f_sal.write("\t\t (tiene-objeto " + ob.split("-")[0] +")\n")
 f_sal.write("\t\t (<= (distancia-total) 126)\n")
-"""
-f_sal.write("\t\t (>= (puntos-jugador) " + puntos + ")\n")
 f_sal.write("\t     )\n")
 f_sal.write("\t)\n")
 f_sal.write(")")
