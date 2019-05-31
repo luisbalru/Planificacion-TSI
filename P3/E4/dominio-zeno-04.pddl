@@ -68,10 +68,10 @@
    (:method Case2
 	  :precondition (and (at ?p - person ?c1 - city)
 			                 (at ?a - aircraft ?c1 - city)
-                       ())
+                  )
 
 	  :tasks (
-	  	      (montar-persona ?a ?c)
+	  	      (montar-persona ?a ?c1)
 		        (mover-avion ?a ?c1 ?c)
 		        (bajar-persona ?a ?c))
   )
@@ -80,13 +80,13 @@
                         (at ?a - aircraft ?c2 - city))
     :tasks(
             (mover-avion ?a ?c2 ?c1)
-            (montar-persona ?a ?c)
+            (montar-persona ?a ?c1)
             (mover-avion ?a ?c1 ?c)
 		        (bajar-persona ?a ?c))
   )
   (:method Case4
       :precondition (and
-                      (in ?p ?a - aircraft)
+                      (in ?p - person ?a - aircraft)
                       (at ?a - aircraft ?c1 - city)
                       (not (destino ?p - person ?c1))
                     )
@@ -119,7 +119,7 @@
     :precondition(and
                     (at ?a ?c2)
                   )
-    :task()
+    :tasks()
   )
 )
 
@@ -128,7 +128,8 @@
  (:method fuel-suficiente-zoom
   :precondition (and
                     (hay-fuel ?a ?c1 ?c2)
-                    (> (fuel-limit) (+ (total-fuel-used) (* (distance ?c1 ?c2) (fast-burn ?a))))
+                    (> (fuel-limit ?a) (+ (total-fuel-used) (* (distance ?c1 ?c2) (fast-burn ?a))))
+                    (< (tiempo-vuelo ?a) (limite-horas ?a))
                 )
   :tasks (
           (zoom ?a ?c1 ?c2)
@@ -137,7 +138,8 @@
   (:method fuel-fly
     :precondition(and
                     (hay-fuel ?a ?c1 ?c2)
-                    (> (fuel-limit) (+ (total-fuel-used) (* (distance ?c1 ?c2) (slow-burn ?a))))
+                    (> (fuel-limit ?a) (+ (total-fuel-used) (* (distance ?c1 ?c2) (slow-burn ?a))))
+                    (< (tiempo-vuelo ?a) (limite-horas ?a))
                 )
     :tasks (
             (fly ?a ?c1 ?c2)
@@ -164,7 +166,7 @@
                     (not (at ?p - person ?c))
                     (> (num-pasajeros ?a) (limite-pasajeros ?a))
                   )
-    :task()
+    :tasks()
   )
   (:method quedan
     :precondition(and
@@ -173,7 +175,7 @@
                     (< (num-pasajeros ?a) (limite-pasajeros ?a))
                     (not (destino ?p - person ?c))
                   )
-    :task(and
+    :tasks(
             (board ?p - person ?a ?c)
             (montar-persona ?a ?c)
          )
@@ -188,14 +190,14 @@
                     (at ?a ?c)
                     (destino ?p - person ?c)
                   )
-    :task(and
+    :tasks(
             (debark ?p - person ?a ?c)
             (bajar-persona ?a ?c)
           )
     )
     (:method no-hay
       :precondition()
-      :task()
+      :tasks()
     )
 )
 
