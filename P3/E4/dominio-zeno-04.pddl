@@ -186,7 +186,7 @@
   :parameters(?a - aircraft ?c - city)
   (:method quedan
     :precondition(and
-                    (at ?p - person ?c)
+                    (in ?p - person ?a)
                     (at ?a ?c)
                     (destino ?p - person ?c)
                   )
